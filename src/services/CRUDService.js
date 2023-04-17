@@ -40,7 +40,7 @@ let getAllUser = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let users = db.User.findAll({
-        raw: true,
+        raw: true, // Data return to format object
       });
       resolve(users);
     } catch (e) {
