@@ -1,5 +1,6 @@
 import db from "../models/index";
 import bcrypt from "bcryptjs";
+import user from "../models/user";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -21,8 +22,8 @@ let handleUserLogin = (email, password) => {
       if (isExist) {
         //user already exist
         let user = await db.User.findOne({
+          attributes: ["email", "roleId", "password", "firstName", "lastName"],
           where: { email: email },
-          attributes: ["email", "roleId", "password"],
           raw: true,
         });
         if (user) {
@@ -212,7 +213,6 @@ let getAllCodeService = (typeInput) => {
     }
   });
 };
-
 module.exports = {
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,
